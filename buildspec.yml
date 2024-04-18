@@ -1,0 +1,40 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing nodejs and npm..
+      - sudo yum update -y
+      - sudo yum install -y nodejs
+  
+  pre_build:
+    commands:
+      - echo Installing dependencies 
+      - npm install
+      - cd frontend
+      - npm install 
+
+  build:
+    commands:
+      - echo Build Started..
+      - npm run build
+      - cd ..
+  
+  post_build:
+    commands:
+      - echo Build Completed
+  
+artifacts:
+  files:
+    - package.json
+    - package-lock.json
+    - CodeAgentScript.txt
+    - .env
+    - appspec.yml
+    - frontend/.env
+    - frontend/package.json
+    - frontend/package-lock.json
+    - frontend/vite.config.js
+    - frontend/dist/**/*
+    - backend/**/*
+    - scripts/**/*
